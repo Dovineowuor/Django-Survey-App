@@ -1,6 +1,6 @@
 # Django Survey Application
 
-![Django-Survey-App Logo](link-to-logo.png) *(Replace 'link-to-logo.png' with an appropriate image of your choice)*
+(![Django-Survey-App Logo](https://github.com/Dovineowuor/Django-Survey-App/assets/70941806/c4f472d4-bf2c-40e3-b8fe-66d10dd0d7dd)
 
 The Django-Survey-App is a custom Django survey application that integrates with the allauth authentication app. This demo app builds upon the [official Django tutorial](https://docs.djangoproject.com/en/1.10/intro/tutorial01/) and includes additional features to enhance the survey experience.
 
