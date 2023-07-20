@@ -1,0 +1,65 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+    {% if question is not None %}
+        <h3>{{ question.question_text }}</h3>
+         <div class="btn-group">
+        <a href="{% url 'polls:new_guest_session' %}" class="btn btn-primary">
+            New Guest Session
+        </a>
+    </div>
+
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+            {% csrf_token %}
+
+            {% if question.question_type == 'T' %}
+                <div class="form-group">
+                    <label for="textspace">Your Answer:</label>
+                    <input type="text" name="textspace" id="textspace" class="form-control" placeholder="Your Answer">
+                </div>
+            {% else %}
+                <div class="row">
+                    {% for choice in question.choice_set.all %}
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="radio" name="choice"
+                                           id="choice{{ forloop.counter }}"
+                                           value="{{ choice.id }}" />
+                                </span>
+                                <span class="form-control">
+                                    {{ choice.choice_text }}
+                                </span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <input class="btn btn-primary" type="submit" value="Vote" />
+        </form>
+
+        {% if error_message %}
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> {{ error_message }}
+            </div>
+        {% endif %}
+    {% elif all_answered %}
+        <p>
+            You've answered all questions.
+            Log in as a new guest to bias the results.
+        </p>
+        <div class="btn-group">
+            <a href="{% url 'polls:new_guest_session' %}"
+               class="btn btn-primary">
+                New Guest Session
+            </a>
+        </div>
+    {% else %}
+        <p>
+            No questions defined. Add new questions in
+            <a href="{% url 'admin:index' %}">
+                Survey Admin page
+            </a>.
+        </p>
+    {% endif %}
+{% endblock %}
